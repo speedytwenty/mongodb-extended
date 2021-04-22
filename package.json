@@ -1,6 +1,6 @@
 {
   "name": "mongodb-extended",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Extends the node.js MongoDB driver providing useful tools for keeping database and collection settings in sync.",
   "main": "index.js",
   "scripts": {
