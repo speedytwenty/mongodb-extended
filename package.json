@@ -44,5 +44,9 @@
   },
   "lint-staged": {
     "*.js": "eslint --fix"
-  }
+  },
+  "files": [
+    "index.js",
+    "lib"
+  ]
 }
