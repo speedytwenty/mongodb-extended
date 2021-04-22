@@ -1,4 +1,5 @@
 /**
+ * @file
  * Primary entry for mongodb-extended.
  *
  * Mimmicks the mongodb driver while overriding the connect interface and
