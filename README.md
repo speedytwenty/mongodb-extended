@@ -5,7 +5,8 @@
 
 # MongoDB Extended (mongodb-extended)
 
-Extends the Node.js driver adding a useful API for modeling and MongoDB objects.
+Extends the Node.js driver adding a useful API for modeling MongoDB objects and
+keeping database structures in sync across environments.
 
 **Use case:**
 
@@ -71,7 +72,7 @@ const config = {
   },
 };
 
-connect(config).then(({ client, db, collections }) => {
+connect(config, { initialize: true }).then(({ client, db, collections }) => {
   collections.myCollection.findOne({ name: 'John' }).then((document) => {
     return client.close();
   });
