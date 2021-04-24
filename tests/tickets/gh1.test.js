@@ -64,6 +64,7 @@ describe('text index modified when config does not change', () => {
         weights: {
           textA: 1,
           textB: 1,
+          'text.c': 1,
         },
         background: true,
         default_language: 'none',
@@ -77,6 +78,7 @@ describe('text index modified when config does not change', () => {
           nontext: 1,
           textA: 'text',
           textB: 'text',
+          'text.c': 'text',
         },
         options: {
           default_language: 'none',
