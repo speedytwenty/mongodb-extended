@@ -83,6 +83,11 @@ describe('text index modified when config does not change', () => {
         options: {
           default_language: 'none',
           background: true,
+          weights: {
+            textA: 1,
+            textB: 1,
+            'text.c': 1,
+          },
         },
       },
     };
