@@ -70,6 +70,14 @@ const config = {
       options: { capped: true, size: 12 },
     },
   },
+  // Ensure the db server is running with these parameters.
+  // WARNING: The settings affect the entire server
+  // See the MongoDB documentation for supported parameters that can be changed
+  // at runtime: https://docs.mongodb.com/manual/reference/parameters/#diagnostic-parameters
+  serverParameters: {
+    logLevel: 2,
+    notablescan: true,
+  },
 };
 
 connect(config, { initialize: true }).then(({ client, db, collections }) => {
@@ -86,8 +94,7 @@ const connect = require('mongodb');
 const { initializeCollections } = require('mongodb');
 
 connect('my://mongodb/url')
-  .then((client) => client.db('myDb'))
-  .then((db) => initializeCollections(db, {
+  .then((client) => client.db('myDb')) .then((db) => initializeCollections(db, {
       myCollection: {
         indexes: {
           name: {

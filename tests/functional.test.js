@@ -2,6 +2,7 @@
  * @file
  * General functional test.
  */
+const { omit, pick } = require('lodash');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const connect = require('..');
 const Db = require('../lib/db');
@@ -120,6 +121,90 @@ describe('General application', () => {
       instances.push(client);
       expect(await collections.col1.indexExists('idx1')).toEqual(false);
       return client.close();
+    });
+  });
+  test('sets server params', async () => {
+    conf.serverParameters = {
+      cursorTimeoutMillis: 600001,
+      failIndexKeyTooLong: false,
+      notablescan: true,
+      scramIterationCount: 12000,
+      scramSHA256IterationCount: 20000,
+      ttlMonitorEnabled: false,
+      disableJavaScriptJIT: false,
+      maxIndexBuildMemoryUsageMegabytes: 501,
+      logLevel: 2,
+      maxLogSizeKB: 11,
+      quiet: true,
+      traceExceptions: true,
+      oplogInitialFindMaxSeconds: 61,
+      rollbackTimeLimitSecs: 86401,
+      waitForSecondaryBeforeNoopWriteMS: 11,
+      createRollbackDataFiles: false,
+      enableElectionHandoff: false,
+      replBatchLimitBytes: 104857500,
+      migrateCloneInsertionBatchDelayMS: 1,
+      orphanCleanupDelaySecs: 901,
+      rangeDeleterBatchDelayMS: 21,
+      rangeDeleterBatchSize: 1,
+      journalCommitInterval: 2,
+      syncdelay: 61,
+      wiredTigerConcurrentReadTransactions: 129,
+      wiredTigerConcurrentWriteTransactions: 129,
+      maxTransactionLockRequestTimeoutMillis: 6,
+      // clusterAuthMode: Illegal state transition
+      // ldapUserCacheInvalidationInterval: 31, attempted to set unrecognized parameter [ldapUserCacheInvalidationInterval]
+      // Requires SSL (mongodb-memory-server doesn't seem to support it)
+      // sslMode: 'preferSSL', Illegal state transition for sslMode, attempt to change from disabled to preferSSL
+      // tlsMode: 'preferSSL',
+      // Mongo 3.2 (only)
+      // replMonitorMaxFailedChecks: 31,
+      // timeOutMonitoringReplicaSets', 3.2.10+
+      // Mongo 4.2
+      // enableFlowControl: false,
+      // flowControlTargetLagSeconds: ,
+      // flowControlWarnThresholdSeconds',
+      // watchdogPeriodSeconds: 61, Enterprise only until 4.2
+      // tcmallocReleaseRate: 2.0, New in version 4.2.3: Also available in 3.6.17+ and 4.0.14+
+      // Mongo 4.4
+      // initialSyncTransientErrorRetryPeriodSeconds',
+      // enableShardedIndexConsistencyCheck: false,
+      // maxTimeMSForHedgedReads: 151,
+      // readHedgingMode: 'off',
+      // Enterprise only
+      // auditAuthorizationSuccess: true,
+      // Complex
+      // wiredTigerEngineRuntimeConfig: { ... },
+      // logComponentVerbosity: { verbosity: -1 },
+      // Not sure why these are unsupported (might be mongodb-memory-server)
+      // diagnosticDataCollectionEnabled: false,
+      // diagnosticDataCollectionDirectoryPath: './xyz',
+      // diagnosticDataCollectionDirectorySizeMB: 100,
+      // diagnosticDataCollectionFileSizeMB: 11,
+      // diagnosticDataCollectionPeriodMillis: 1001,
+      // redactClientLogData: true,
+      // ShardingTaskExecutorPoolReplicaSetMatching: 300001, Unrecognized
+      // wiredTigerMaxCacheOverflowSizeGB: 1.01, // Deprecated in 4.4 (Unrecognized)
+    };
+    const originalParams = await connect(conf, { initialize: false })
+      .then(async ({ client, db }) => {
+        instances.push(client);
+        return db.admin().command({ getParameter: '*' })
+          .then((orig) => {
+            Object.entries(conf.serverParameters).forEach(([paramName, changeToVal]) => {
+              // Ensure the value is not the same as what the test is attempting
+              // to change it to.
+              expect(orig[paramName], `The original param for ${paramName} is expected to differ than the change value.`).not.toEqual(changeToVal);
+            });
+            return client.close().then(() => pick(orig, Object.keys(conf.serverParameters)));
+          });
+      });
+    return connect(conf, { initialize: true }).then(async ({ client, db }) => {
+      instances.push(client);
+      const params = await db.admin().command({ getParameter: '*' });
+      expect(pick(params, Object.keys(conf.serverParameters))).toEqual(conf.serverParameters);
+      // Restore our original values to be pedantic
+      return db.initializeServer(omit(originalParams, ['journalCommitInterval'])).then(() => client.close());
     });
   });
 });
