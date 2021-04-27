@@ -75,7 +75,6 @@ describe('General application', () => {
   });
   test('allows initialization with new identified documents', () => {
     conf.collections.col3.data.push({ _id: 'foo', x: 'E', y: 'F' });
-    expect.assertions = 1;
     return connect(conf, { initialize: true }).then(async ({ client, collections }) => {
       instances.push(client);
       expect(await collections.col3.countDocuments()).toEqual(4);
@@ -85,7 +84,6 @@ describe('General application', () => {
   test('drops collections', () => {
     delete conf.collections.col3;
     conf.dropCollections = ['col3'];
-    expect.assertions = 2;
     return connect(conf, { initialize: true }).then(async ({ client, db, collections }) => {
       instances.push(client);
       expect(collections.col3).toBeUndefined();

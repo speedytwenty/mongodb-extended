@@ -22,10 +22,10 @@ const conf = {
 };
 
 describe('initializeAll()', () => {
-  test('rejects invalid arguments', () => {
-    expect(() => initializeAll()).rejects.toThrow(/Db/);
-    expect(() => initializeAll({})).rejects.toThrow(/Db/);
-    expect(() => initializeAll(db)).rejects.toThrow(/object/);
+  test('rejects invalid arguments', async () => {
+    await expect(() => initializeAll()).rejects.toThrow(/Db/);
+    await expect(() => initializeAll({})).rejects.toThrow(/Db/);
+    await expect(() => initializeAll(db)).rejects.toThrow(/object/);
   });
   test('initializes all', () => {
     return initializeAll(db, conf).then((result) => {

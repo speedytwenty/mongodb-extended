@@ -19,7 +19,6 @@ const collection = new Collection(new Db(), new Server(), 'dbName', 'colName', n
 describe('Collection', () => {
   test('ensureIndexes', () => {
     const indexes = { x: { y: 1 } };
-    expect.assertions = 1;
     return collection.ensureIndexes(indexes).then(() => {
       expect(ensureIndexes).toHaveBeenCalledWith(collection, indexes);
     });
@@ -27,7 +26,6 @@ describe('Collection', () => {
   test('initializeData', () => {
     const data = [{ x: 1 }];
     const opts = { y: 2 };
-    expect.assertions = 1;
     return collection.initializeData(data, opts).then(() => {
       expect(initializeData).toHaveBeenCalledWith(collection, data, opts);
     });

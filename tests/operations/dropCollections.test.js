@@ -18,13 +18,13 @@ db.dropCollection = jest.fn().mockImplementation(() => Promise.resolve());
 
 afterEach(() => jest.clearAllMocks());
 describe('dropCollections()', () => {
-  test('rejects invalid arguments', () => {
-    expect(() => dropCollections()).rejects.toThrow(/Db/);
-    expect(() => dropCollections(1)).rejects.toThrow(/Db/);
-    expect(() => dropCollections({})).rejects.toThrow(/Db/);
-    expect(() => dropCollections('db')).rejects.toThrow(/Db/);
-    expect(() => dropCollections(db)).rejects.toThrow(/Array/);
-    expect(() => dropCollections(db, [1])).rejects.toThrow(/string/);
+  test('rejects invalid arguments', async () => {
+    await expect(() => dropCollections()).rejects.toThrow(/Db/);
+    await expect(() => dropCollections(1)).rejects.toThrow(/Db/);
+    await expect(() => dropCollections({})).rejects.toThrow(/Db/);
+    await expect(() => dropCollections('db')).rejects.toThrow(/Db/);
+    await expect(() => dropCollections(db)).rejects.toThrow(/array/);
+    await expect(() => dropCollections(db, [1])).rejects.toThrow(/string/);
   });
   test('drops existing collections', () => {
     return dropCollections(db, ['col1', 'col3']).then((result) => {

@@ -31,6 +31,18 @@ afterEach(() => {
   collection.dropIndex.mockClear();
 });
 describe('ensureIndexes()', () => {
+  test('rejects invalid arguments', async () => {
+    await expect(() => ensureIndexes()).rejects.toThrow(/Collection/);
+    await expect(() => ensureIndexes({})).rejects.toThrow(/Collection/);
+    await expect(() => ensureIndexes(collection)).rejects.toThrow(/object/);
+    await expect(() => ensureIndexes(collection, {})).rejects.toThrow(/indexes/);
+  });
+  test('rejects invalid collection spec', async () => {
+    await expect(() => ensureIndexes(collection, { foo: {} })).rejects.toThrow(/object/);
+    await expect(() => ensureIndexes(collection, { foo: { keys: {} } })).rejects.toThrow(/keys/);
+    indexes.y.options.foo = 'bar';
+    await expect(ensureIndexes(collection, indexes)).rejects.toThrow(/foo/);
+  });
   test('creates non-existant indexes', () => {
     collection.listIndexes = jest.fn().mockReturnValue({
       toArray: jest.fn().mockImplementation(() => Promise.resolve([])),
@@ -70,9 +82,5 @@ describe('ensureIndexes()', () => {
       expect(collection.dropIndex).not.toHaveBeenCalled();
       expect(result).toEqual({ unchanged: ['x', 'y'] });
     });
-  });
-  test('rejects invalid collection option', () => {
-    indexes.y.options.foo = 'bar';
-    expect(ensureIndexes(collection, indexes)).rejects.toThrow(/foo/);
   });
 });

@@ -7,8 +7,10 @@ const initializeServer = require('../../lib/operations/initializeServer');
 
 jest.mock('../../lib/db');
 
-const command = jest.fn().mockImplementation(({ setParameter, getParameter }) => {
+const command = jest.fn().mockImplementation((params) => {
+  const { setParameter, getParameter } = params;
   if (setParameter) {
+    if (params.logLevel === 'errmsg') return Promise.resolve({ errmsg: 'error' });
     return Promise.resolve({ ok: 1 });
   }
   if (getParameter) {
@@ -24,11 +26,11 @@ db.admin = jest.fn().mockReturnValue({ command });
 afterAll(() => jest.clearAllMocks());
 
 describe('initializeServer()', () => {
-  test('rejects invalid input', () => {
-    expect(() => initializeServer()).rejects.toThrow(/Db/);
-    expect(() => initializeServer(db)).rejects.toThrow(/object/);
-    expect(() => initializeServer(db, {})).rejects.toThrow(/parameters/);
-    expect(() => initializeServer(db, { invalidParam: 1 })).rejects.toThrow(/invalidParam/);
+  test('rejects invalid input', async () => {
+    await expect(() => initializeServer()).rejects.toThrow(/Db/);
+    await expect(() => initializeServer(db)).rejects.toThrow(/object/);
+    await expect(() => initializeServer(db, {})).rejects.toThrow(/parameters/);
+    await expect(() => initializeServer(db, { invalidParam: 1 })).rejects.toThrow(/invalidParam/);
   });
   test('sets server parameters', () => {
     const params = { notablescan: true, logLevel: 1 };
@@ -43,5 +45,9 @@ describe('initializeServer()', () => {
         notablescan: true,
       });
     });
+  });
+  test('rejects on command error', async () => {
+    const params = { logLevel: 'errmsg' };
+    await expect(() => initializeServer(db, params)).rejects.toThrow(/error/);
   });
 });

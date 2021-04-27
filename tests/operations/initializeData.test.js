@@ -22,6 +22,13 @@ afterEach(() => {
 });
 
 describe('initializeData()', () => {
+  test('rejects invalid input', async () => {
+    await expect(() => initializeData()).rejects.toThrow(/Collection/);
+    await expect(() => initializeData({})).rejects.toThrow(/Collection/);
+    await expect(() => initializeData(collection)).rejects.toThrow(/array/);
+    await expect(() => initializeData(collection, {})).rejects.toThrow(/array/);
+    await expect(() => initializeData(collection, [1])).rejects.toThrow(/object/);
+  });
   test('initializes all documents on first run', () => {
     collection.countDocuments = jest.fn().mockImplementation(() => Promise.resolve(0));
     return initializeData(collection, data).then((result) => {
@@ -35,6 +42,13 @@ describe('initializeData()', () => {
       expect(result.inserted).toEqual(0);
       expect(result.upserted).toEqual(1);
       expect(result.skipped).toEqual(1);
+    });
+  });
+  test('resolves zero result without data', () => {
+    collection.countDocuments = jest.fn();
+    return initializeData(collection, []).then((result) => {
+      expect(collection.countDocuments).not.toHaveBeenCalled();
+      expect(result).toEqual({ inserted: 0, upserted: 0, skipped: 0 });
     });
   });
 });

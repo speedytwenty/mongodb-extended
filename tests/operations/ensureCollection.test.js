@@ -23,8 +23,16 @@ afterEach(() => {
 });
 
 describe('ensureCollection()', () => {
-  test('rejects invalid options', () => {
-    expect(ensureCollection(db, 'x', { invalidOpt: 1 })).rejects.toThrow(/invalidOpt/);
+  test('rejects invalid arguments', async () => {
+    await expect(ensureCollection()).rejects.toThrow(/Db/);
+    await expect(ensureCollection({})).rejects.toThrow(/Db/);
+    await expect(ensureCollection(db)).rejects.toThrow(/string/);
+    await expect(ensureCollection(db, '')).rejects.toThrow(/name/);
+    await expect(ensureCollection(db, 'x', 1)).rejects.toThrow(/object/);
+    await expect(ensureCollection(db, 'x', 'foo')).rejects.toThrow(/object/);
+  });
+  test('rejects invalid options', async () => {
+    await expect(ensureCollection(db, 'x', { invalidOpt: 1 })).rejects.toThrow(/invalidOpt/);
   });
 
   test('creates and resolves collection', () => {
