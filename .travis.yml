@@ -1,9 +1,12 @@
 language: node_js
 node_js:
-  - 16
   - 15
   - 14
   - 12
+env:
+  jobs:
+    - MONGOMS_VERSION=3.6.23
+    - MONGOMS_VERSION=4.2.8
 jobs:
   include:
     - stage: Coveralls Test Coverage
