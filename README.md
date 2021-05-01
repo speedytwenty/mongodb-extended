@@ -34,11 +34,11 @@ This includes:
 
 *With NPM:*
 
-`npm i mongodb-extended mongodb`
+`npm i mongodb-extended`
 
 *With Yarn:*
 
-`yarn add mongodb-extended mongodb`
+`yarn add mongodb-extended`
 
 ## Usage
 
