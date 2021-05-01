@@ -41,7 +41,8 @@
   "dependencies": {
     "bluebird": "^3.7.2",
     "bycontract": "^2.0.10",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.15",
+    "semver": "^7.3.5"
   },
   "lint-staged": {
     "*.js": "eslint --fix"

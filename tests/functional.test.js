@@ -3,6 +3,7 @@
  * General functional test.
  */
 const { omit, pick } = require('lodash');
+const semver = require('semver');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const connect = require('..');
 const Db = require('../lib/db');
@@ -122,68 +123,104 @@ describe('General application', () => {
     });
   });
   test('sets server params', async () => {
+    const { version } = await connect(conf)
+      .then(({ client, db }) => {
+        instances.push(client);
+        return db.admin().serverStatus().then((result) => {
+          client.close();
+          return result;
+        });
+      });
     conf.serverParameters = {
       cursorTimeoutMillis: 600001,
-      failIndexKeyTooLong: false,
       notablescan: true,
       scramIterationCount: 12000,
-      scramSHA256IterationCount: 20000,
       ttlMonitorEnabled: false,
-      disableJavaScriptJIT: false,
       maxIndexBuildMemoryUsageMegabytes: 501,
       logLevel: 2,
-      maxLogSizeKB: 11,
       quiet: true,
       traceExceptions: true,
-      oplogInitialFindMaxSeconds: 61,
-      rollbackTimeLimitSecs: 86401,
-      waitForSecondaryBeforeNoopWriteMS: 11,
-      createRollbackDataFiles: false,
-      enableElectionHandoff: false,
-      replBatchLimitBytes: 104857500,
-      migrateCloneInsertionBatchDelayMS: 1,
-      orphanCleanupDelaySecs: 901,
-      rangeDeleterBatchDelayMS: 21,
-      rangeDeleterBatchSize: 1,
       journalCommitInterval: 2,
       syncdelay: 61,
       wiredTigerConcurrentReadTransactions: 129,
       wiredTigerConcurrentWriteTransactions: 129,
-      maxTransactionLockRequestTimeoutMillis: 6,
-      // clusterAuthMode: Illegal state transition
-      // ldapUserCacheInvalidationInterval: 31, attempted to set unrecognized parameter [ldapUserCacheInvalidationInterval]
-      // Requires SSL (mongodb-memory-server doesn't seem to support it)
-      // sslMode: 'preferSSL', Illegal state transition for sslMode, attempt to change from disabled to preferSSL
-      // tlsMode: 'preferSSL',
-      // Mongo 3.2 (only)
-      // replMonitorMaxFailedChecks: 31,
-      // timeOutMonitoringReplicaSets', 3.2.10+
-      // Mongo 4.2
-      // enableFlowControl: false,
-      // flowControlTargetLagSeconds: ,
-      // flowControlWarnThresholdSeconds',
-      // watchdogPeriodSeconds: 61, Enterprise only until 4.2
-      // tcmallocReleaseRate: 2.0, New in version 4.2.3: Also available in 3.6.17+ and 4.0.14+
-      // Mongo 4.4
-      // initialSyncTransientErrorRetryPeriodSeconds',
-      // enableShardedIndexConsistencyCheck: false,
-      // maxTimeMSForHedgedReads: 151,
-      // readHedgingMode: 'off',
-      // Enterprise only
-      // auditAuthorizationSuccess: true,
-      // Complex
-      // wiredTigerEngineRuntimeConfig: { ... },
-      // logComponentVerbosity: { verbosity: -1 },
-      // Not sure why these are unsupported (might be mongodb-memory-server)
-      // diagnosticDataCollectionEnabled: false,
-      // diagnosticDataCollectionDirectoryPath: './xyz',
-      // diagnosticDataCollectionDirectorySizeMB: 100,
-      // diagnosticDataCollectionFileSizeMB: 11,
-      // diagnosticDataCollectionPeriodMillis: 1001,
-      // redactClientLogData: true,
-      // ShardingTaskExecutorPoolReplicaSetMatching: 300001, Unrecognized
-      // wiredTigerMaxCacheOverflowSizeGB: 1.01, // Deprecated in 4.4 (Unrecognized)
+      disableJavaScriptJIT: semver.lt(version, '4.0.0'), // Default changed in 4.0
     };
+    if (semver.gte(version, '3.4.0')) {
+      conf.serverParameters.maxLogSizeKB = 11;
+    }
+    if (semver.satisfies(version, '>=3.2.0 <3.3.0')) {
+      conf.serverParameters.replMonitorMaxFailedChecks = 31;
+      if (semver.satisfies(version, '>=3.2.10 <3.3.0')) {
+        conf.serverParameters.timeOutMonitoringReplicaSets = true;
+      }
+    }
+    if (semver.gte(version, '3.6.0')) {
+      conf.serverParameters.orphanCleanupDelaySecs = 901;
+      conf.serverParameters.waitForSecondaryBeforeNoopWriteMS = 11;
+      conf.serverParameters.oplogInitialFindMaxSeconds = 61;
+    }
+    if (semver.gte(version, '4.0.1') || semver.satisfies(version, '>=3.4.17 <3.5.0') || semver.satisfies(version, '>=3.6.7 <4.0.0')) {
+      conf.serverParameters.rangeDeleterBatchDelayMS = 21;
+    }
+    if (semver.gte(version, '4.0.5') || semver.satisfies(version, '>=3.4.19 <3.5.0') || semver.satisfies(version, '>=3.6.10 <4.0.0')) {
+      conf.serverParameters.rangeDeleterBatchSize = 1;
+    }
+    if (semver.gte(version, '4.0.5') || semver.satisfies(version, '>=3.4.18 <3.5.0') || semver.satisfies(version, '>=3.6.10 <4.0.0')) {
+      conf.serverParameters.migrateCloneInsertionBatchDelayMS = 1;
+    }
+    if (semver.gte(version, '4.0.0')) {
+      conf.serverParameters.rollbackTimeLimitSecs = 86401;
+      conf.serverParameters.createRollbackDataFiles = false;
+      conf.serverParameters.maxTransactionLockRequestTimeoutMillis = 6;
+      conf.serverParameters.scramSHA256IterationCount = 20000;
+      if (semver.gte(version, '4.0.2')) {
+        conf.serverParameters.enableElectionHandoff = false;
+      }
+      if (semver.gte(version, '4.0.10')) {
+        conf.serverParameters.replBatchLimitBytes = 104857500;
+      }
+    }
+    if (semver.gte(version, '4.2.0')) {
+      conf.serverParameters.enableFlowControl = false;
+      conf.serverParameters.flowControlTargetLagSeconds = 11;
+      conf.serverParameters.flowControlWarnThresholdSeconds = 11;
+      // watchdogPeriodSeconds cannot be changed at runtime if it was not set at startup
+      // conf.serverParameters.watchdogPeriodSeconds = 61; // Enterprise only until 4.2
+    }
+    if (semver.gte(version, '4.4.0') || semver.satisfies(version, '>=4.2.6 <4.3.0')) {
+      conf.serverParameters.enableShardedIndexConsistencyCheck = false;
+    }
+    if (semver.lt(version, '4.4.0')) {
+      conf.serverParameters.failIndexKeyTooLong = false; // Removed in 4.4
+    }
+    if (semver.gte(version, '4.4.0')) {
+      conf.serverParameters.initialSyncTransientErrorRetryPeriodSeconds = 86401;
+      conf.serverParameters.maxTimeMSForHedgedReads = 151;
+      conf.serverParameters.readHedgingMode = 'off';
+    }
+    // clusterAuthMode: Illegal state transition
+    // ldapUserCacheInvalidationInterval: 31, attempted to set unrecognized parameter [ldapUserCacheInvalidationInterval]
+    // Requires SSL (mongodb-memory-server doesn't seem to support it)
+    // sslMode: 'preferSSL', Illegal state transition for sslMode, attempt to change from disabled to preferSSL
+    // tlsMode: 'preferSSL',
+    // Mongo 4.4
+    // Enterprise only
+    // auditAuthorizationSuccess: true,
+    // Complex
+    // wiredTigerEngineRuntimeConfig: { ... },
+    // logComponentVerbosity: { verbosity: -1 },
+    // Not sure why these are unsupported (might be mongodb-memory-server)
+    // diagnosticDataCollectionEnabled: false,
+    // diagnosticDataCollectionDirectoryPath: './xyz',
+    // diagnosticDataCollectionDirectorySizeMB: 100,
+    // diagnosticDataCollectionFileSizeMB: 11,
+    // diagnosticDataCollectionPeriodMillis: 1001,
+    // redactClientLogData: true,
+    // ShardingTaskExecutorPoolReplicaSetMatching: 300001, Unrecognized
+    // wiredTigerMaxCacheOverflowSizeGB: 1.01, // Deprecated in 4.4 (Unrecognized)
+    // unrecognized conf.serverParameters.tcmallocReleaseRate = 2.0; // New in version 4.2.3: Also available in 3.6.17+ and 4.0.14+
+
     const originalParams = await connect(conf, { initialize: false })
       .then(async ({ client, db }) => {
         instances.push(client);
