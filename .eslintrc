@@ -51,7 +51,7 @@
         "ClassDeclaration:not([accessibility=\"private\"])",
       ],
     }],
-    "jsdoc/require-file-overview": "warn",
+    "jsdoc/require-file-overview": "off",
     "jsdoc/require-hyphen-before-param-description": "off",
     "jsdoc/require-jsdoc": ["warn", {
       "publicOnly": true,

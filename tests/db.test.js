@@ -26,17 +26,14 @@ describe('Db', () => {
   test('initializeCollections()', () => {
     const conf = { c: 1 };
     const opts = { x: 1 };
-    const cb = () => {};
-    return db.initializeCollections(conf, opts, cb).then(() => {
-      expect(initializeCollections).toHaveBeenCalledWith(db, conf, opts, cb);
+    return db.initializeCollections(conf, opts).then(() => {
+      expect(initializeCollections).toHaveBeenCalledWith(db, conf, opts);
     });
   });
   test('initializeCollection()', () => {
     const opts = { x: 1 };
-    const indexes = { y: 1 };
-    const cb = () => {};
-    return db.initializeCollection('y', opts, indexes, cb).then(() => {
-      expect(initializeCollection).toHaveBeenCalledWith(db, 'y', opts, indexes, cb);
+    return db.initializeCollection('y', opts).then(() => {
+      expect(initializeCollection).toHaveBeenCalledWith(db, 'y', opts);
     });
   });
   test('ensureCollection()', () => {
