@@ -34,14 +34,14 @@
     "jest-expect-message": "^1.0.2",
     "jsdoc-to-markdown": "^7.0.1",
     "lint-staged": "^10.5.4",
-    "mongodb-memory-server": "^6.9.6"
+    "mongodb-memory-server": "^6.9.6",
+    "semver": "^7.3.5"
   },
   "dependencies": {
     "bluebird": "^3.7.2",
     "bycontract": "^2.0.10",
     "lodash": "^4.17.15",
-    "mongodb": "3.6.6",
-    "semver": "^7.3.5"
+    "mongodb": "3.6.6"
   },
   "lint-staged": {
     "*.js": "eslint --fix"
