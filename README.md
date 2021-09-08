@@ -170,7 +170,7 @@ connect({
     * [.initializeCollections](#module_connect.initializeCollections) ⇒ [<code>Promise.&lt;InitializeCollectionsResult&gt;</code>](#module_connect.initializeCollections.InitializeCollectionsResult)
         * [.InitializeCollectionsType](#module_connect.initializeCollections.InitializeCollectionsType) : [<code>object.&lt;CollectionSpec&gt;</code>](#module_connect.initializeCollection.CollectionSpec) \| [<code>Array.&lt;CollectionSpec&gt;</code>](#module_connect.initializeCollection.CollectionSpec)
         * [.InitializeCollectionsOptions](#module_connect.initializeCollections.InitializeCollectionsOptions) : <code>object</code>
-        * [.InitializeCollectionsResult](#module_connect.initializeCollections.InitializeCollectionsResult) : [<code>object.&lt;Collection&gt;</code>](#Collection)
+        * [.InitializeCollectionsResult](#module_connect.initializeCollections.InitializeCollectionsResult) : [<code>object.&lt;initializeCollections&gt;</code>](#module_connect.initializeCollections)
     * [.initializeServer](#module_connect.initializeServer) ⇒ <code>Promise</code>
     * [.Configuration](#module_connect.Configuration) : <code>object</code>
 
@@ -212,7 +212,7 @@ were dropped.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| db | [<code>Db</code>](#Db) | Active MongoDB database object. |
+| db | <code>module:connect.Db</code> | Active MongoDB database object. |
 | colNames | <code>Array.&lt;string&gt;</code> | Array of collection names to ensure do not exist. |
 
 <a name="module_connect.ensureCollection"></a>
@@ -229,7 +229,7 @@ Ensure collection is in sync.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| db | [<code>Db</code>](#Db) | An active database object. |
+| db | [<code>connect</code>](#module_connect) | Active MongoDB database object. |
 | colName | <code>string</code> | The name of the collection. |
 | [options] | [<code>CollectionOptions</code>](#module_connect.ensureCollection.CollectionOptions) | Collection options. |
 
@@ -256,7 +256,7 @@ operation.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| collection | [<code>Collection</code>](#Collection) | The collection object to ensure indexes on. |
+| collection | <code>module:connect.Collection</code> | The collection object to ensure indexes on. |
 | indexes | [<code>object.&lt;IndexSpec&gt;</code>](#module_connect.ensureIndexes.IndexSpec) | The indexes to ensure. |
 
 
@@ -293,7 +293,7 @@ Connect and initialize (sync database and collection settings).
 
 | Param | Type | Description |
 | --- | --- | --- |
-| db | [<code>Db</code>](#Db) | MongoDB database object. |
+| db | <code>module:connect.Db</code> | MongoDB database object. |
 | conf | <code>object</code> | Full database and collection configuration. |
 
 <a name="module_connect.initializeCollection"></a>
@@ -307,7 +307,7 @@ sync.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| db | [<code>Db</code>](#Db) | An active database object. |
+| db | <code>module:connect.Db</code> | An active database object. |
 | colName | <code>string</code> | The name of the collection to initialize. |
 | colConf | [<code>CollectionSpec</code>](#module_connect.initializeCollection.CollectionSpec) | Collection configuration specification. |
 
@@ -337,7 +337,7 @@ Initialize multiple collections.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| db | [<code>Db</code>](#Db) | An active database object. |
+| db | <code>module:connect.Db</code> | An active database object. |
 | collectionsConf | [<code>object.&lt;CollectionSpec&gt;</code>](#module_connect.initializeCollection.CollectionSpec) | The collections configuration object. |
 | [options] | [<code>InitializeCollectionsOptions</code>](#module_connect.initializeCollections.InitializeCollectionsOptions) | Execution options. |
 
@@ -345,7 +345,7 @@ Initialize multiple collections.
 * [.initializeCollections](#module_connect.initializeCollections) ⇒ [<code>Promise.&lt;InitializeCollectionsResult&gt;</code>](#module_connect.initializeCollections.InitializeCollectionsResult)
     * [.InitializeCollectionsType](#module_connect.initializeCollections.InitializeCollectionsType) : [<code>object.&lt;CollectionSpec&gt;</code>](#module_connect.initializeCollection.CollectionSpec) \| [<code>Array.&lt;CollectionSpec&gt;</code>](#module_connect.initializeCollection.CollectionSpec)
     * [.InitializeCollectionsOptions](#module_connect.initializeCollections.InitializeCollectionsOptions) : <code>object</code>
-    * [.InitializeCollectionsResult](#module_connect.initializeCollections.InitializeCollectionsResult) : [<code>object.&lt;Collection&gt;</code>](#Collection)
+    * [.InitializeCollectionsResult](#module_connect.initializeCollections.InitializeCollectionsResult) : [<code>object.&lt;initializeCollections&gt;</code>](#module_connect.initializeCollections)
 
 <a name="module_connect.initializeCollections.InitializeCollectionsType"></a>
 
@@ -370,7 +370,7 @@ Operation run-time options for initializeCollections().
 
 <a name="module_connect.initializeCollections.InitializeCollectionsResult"></a>
 
-#### initializeCollections.InitializeCollectionsResult : [<code>object.&lt;Collection&gt;</code>](#Collection)
+#### initializeCollections.InitializeCollectionsResult : [<code>object.&lt;initializeCollections&gt;</code>](#module_connect.initializeCollections)
 Result structure for initializeCollections().
 
 The resulting object is derrived from the collection specifications provided.
@@ -388,7 +388,7 @@ Initialize server parameters.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| db | [<code>Db</code>](#Db) | The MongoDB database object. |
+| db | <code>module:connect.Db</code> | The MongoDB database object. |
 | serverParams | <code>object</code> | Server parameters object. |
 
 <a name="module_connect.Configuration"></a>
