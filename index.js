@@ -12,6 +12,7 @@ const connectOperation = require('./lib/operations/connect');
 const connectAndInitialize = require('./lib/operations/connectAndInitialize');
 const ensureCollection = require('./lib/operations/ensureCollection');
 const ensureIndexes = require('./lib/operations/ensureIndexes');
+const initializeAll = require('./lib/operations/initializeAll');
 const initializeCollection = require('./lib/operations/initializeCollection');
 const initializeCollections = require('./lib/operations/initializeCollections');
 const initializeData = require('./lib/operations/initializeData');
@@ -140,6 +141,7 @@ connect.ensureIndexes = ensureIndexes;
 connect.initializeCollection = initializeCollection;
 connect.initializeCollections = initializeCollections;
 connect.initializeData = initializeData;
+connect.initializeAll = initializeAll;
 connect.nativeConnect = nativeConnect;
 
 Object.entries(nativeConnect).forEach(([n, v]) => {

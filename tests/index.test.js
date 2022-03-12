@@ -14,6 +14,7 @@ const ensureIndexes = require('../lib/operations/ensureIndexes');
 const initializeCollection = require('../lib/operations/initializeCollection');
 const initializeCollections = require('../lib/operations/initializeCollections');
 const initializeData = require('../lib/operations/initializeData');
+const initializeAll = require('../lib/operations/initializeAll');
 
 jest.mock('../lib/operations/connect', () => jest.fn().mockImplementation(() => Promise.resolve()));
 jest.mock('../lib/operations/connectAndInitialize', () => jest.fn().mockImplementation(() => Promise.resolve()));
@@ -40,6 +41,7 @@ describe('connect()', () => {
     expect(connect.ensureIndexes).toEqual(ensureIndexes);
     expect(connect.initializeCollection).toEqual(initializeCollection);
     expect(connect.initializeCollections).toEqual(initializeCollections);
+    expect(connect.initializeAll).toEqual(initializeAll);
     expect(connect.initializeData).toEqual(initializeData);
     Object.keys(omit(mongodb, ['connect'])).forEach((key) => {
       expect(connect[key]).toStrictEqual(mongodb[key]);
