@@ -2,6 +2,7 @@
  * @file
  * General functional test.
  */
+require('../whatwg-url-shim');
 const { omit, pick } = require('lodash');
 const semver = require('semver');
 const { MongoMemoryServer } = require('mongodb-memory-server');
@@ -9,7 +10,7 @@ const connect = require('..');
 const Db = require('../lib/db');
 const Collection = require('../lib/collection');
 
-const mongod = new MongoMemoryServer();
+let mongod;
 
 const conf = {
   name: 'mongodb-extended',
@@ -32,7 +33,7 @@ const conf = {
       indexes: {
         abc: {
           keys: {
-            x: 1,
+            x: 'text',
             y: 1,
           },
           options: {
@@ -55,7 +56,10 @@ const conf = {
 };
 
 const instances = [];
-beforeAll(() => mongod.getUri().then((dbUri) => { conf.url = dbUri; }));
+beforeAll(async () => {
+  mongod = await MongoMemoryServer.create();
+  conf.url = mongod.getUri();
+});
 afterAll(() => {
   return Promise.all(instances.map((client) => client.close())).then(() => mongod.stop());
 });
