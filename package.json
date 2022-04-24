@@ -16,7 +16,7 @@
     "url": "git+ssh://git@github.com/speedytwenty/mongodb-extended.git"
   },
   "author": "Chris Lee <speedytwenty@gmail.com>",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/speedytwenty/mongodb-extended/issues"
   },
