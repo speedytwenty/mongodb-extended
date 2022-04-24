@@ -6,7 +6,7 @@ this file).
 -->
 [![view on npm](http://img.shields.io/npm/v/mongodb-extended.svg)](https://www.npmjs.org/package/mongodb-extended)
 [![npm module downloads](http://img.shields.io/npm/dt/mongodb-extended.svg)](https://www.npmjs.org/package/mongodb-extended)
-[![Build Status](https://travis-ci.com/speedytwenty/mongodb-extended.svg?branch=master)](https://travis-ci.com/speedytwenty/mongodb-extended)
+[![Build Status](https://travis-ci.com/speedytwenty/mongodb-extended.svg?branch=master)](https://app.travis-ci.com/github/speedytwenty/mongodb-extended/builds)
 [![Coverage Status](https://coveralls.io/repos/github/speedytwenty/mongodb-extended/badge.svg?branch=master)](https://coveralls.io/github/speedytwenty/mongodb-extended?branch=master)
 [![Maintainability](https://codeclimate.com/github/speedytwenty/mongodb-extended/badges/gpa.svg)](https://codeclimate.com/github/speedytwenty/mongodb-extended/maintainability)
 
