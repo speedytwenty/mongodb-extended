@@ -48,28 +48,6 @@ This includes:
 
 ## API Reference 
 
-## Modules
-
-<dl>
-<dt><a href="#module_connect">connect</a> ⇒ <code>Promise</code></dt>
-<dd><p>Connect to MongoDB and optionally initialize the database configuration and
-collections.</p>
-</dd>
-</dl>
-
-## Classes
-
-<dl>
-<dt><a href="#Collection">Collection</a></dt>
-<dd><p>Extended MongoDB collection.</p>
-</dd>
-<dt><a href="#Db">Db</a></dt>
-<dd><p>Extended MongoDB database.</p>
-<p>Adds useful methods for initialization and maintenance to native MongoDB
-database objects.</p>
-</dd>
-</dl>
-
 <a name="module_connect"></a>
 
 ## connect ⇒ <code>Promise</code>
@@ -407,105 +385,6 @@ Complete configuration for connecting and initializing with mongodb-extended.
 | [collections] | [<code>object.&lt;CollectionSpec&gt;</code>](#module_connect.initializeCollection.CollectionSpec) | The collection specifications for the application. |
 | [dropCollections] | <code>Array.&lt;string&gt;</code> | List of collections that will be dropped if they exist. |
 | [serverParameters] | <code>object</code> | Optionally set server parameters on initialization. |
-
-<a name="Collection"></a>
-
-## Collection
-Extended MongoDB collection.
-
-**Kind**: global class  
-<a name="Collection+initializeData"></a>
-
-### collection.initializeData(data, [options]) ⇒ <code>Promise</code>
-Initialize a collection with fixed data.
-
-Each data document in the provided data is handled individually and results
-may vary based on the state of the collection (whether it is empty or not)
-and whether or not the document has an _id.
-
-1. If a document has an _id, then it can be added to a non-empty collection if
-it hasn't already been added.
-
-2. If a document does NOT have an _id, then it will only be inserted if
-the collection was empty when this operation was invoked.
-
-**Kind**: instance method of [<code>Collection</code>](#Collection)  
-**Returns**: <code>Promise</code> - Resolves void.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>Array.&lt;object&gt;</code> | An array of document objects. |
-| [options] | <code>object</code> | Optional settings. |
-| [options.concurrency] | <code>number</code> | The number of concurrent documents to process at once. Defaults to 0 (all). |
-
-<a name="Db"></a>
-
-## Db
-Extended MongoDB database.
-
-Adds useful methods for initialization and maintenance to native MongoDB
-database objects.
-
-**Kind**: global class  
-
-* [Db](#Db)
-    * [.ensureCollection(collectionName, options)](#Db+ensureCollection) ⇒ [<code>Promise.&lt;Collection&gt;</code>](#Collection)
-    * [.initializeCollection(collectionName, collectionSpec)](#Db+initializeCollection) ⇒ [<code>Promise.&lt;Collection&gt;</code>](#Collection)
-    * [.initializeCollections(collections, options)](#Db+initializeCollections) ⇒ [<code>Promise.&lt;InitializeCollectionsResult&gt;</code>](#module_connect.initializeCollections.InitializeCollectionsResult)
-    * [.initializeServer(serverParams)](#Db+initializeServer) ⇒ <code>Promise.&lt;module:connect.initializeServer.InitializeServerResult&gt;</code>
-
-<a name="Db+ensureCollection"></a>
-
-### db.ensureCollection(collectionName, options) ⇒ [<code>Promise.&lt;Collection&gt;</code>](#Collection)
-Ensure a collection exists in the database and it's options are in sync with
-what is provided.
-
-**Kind**: instance method of [<code>Db</code>](#Db)  
-**Returns**: [<code>Promise.&lt;Collection&gt;</code>](#Collection) - Promise resolves the collection.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| collectionName | <code>string</code> | The name of the collection. |
-| options | [<code>CollectionOptions</code>](#module_connect.ensureCollection.CollectionOptions) | The collection options. |
-
-<a name="Db+initializeCollection"></a>
-
-### db.initializeCollection(collectionName, collectionSpec) ⇒ [<code>Promise.&lt;Collection&gt;</code>](#Collection)
-Synchronize a single collection specification with the database.
-
-**Kind**: instance method of [<code>Db</code>](#Db)  
-**Returns**: [<code>Promise.&lt;Collection&gt;</code>](#Collection) - Resolves the initialized collection.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| collectionName | <code>string</code> | The name of the collection to initialize. |
-| collectionSpec | [<code>CollectionSpec</code>](#module_connect.initializeCollection.CollectionSpec) | The collection specification. |
-
-<a name="Db+initializeCollections"></a>
-
-### db.initializeCollections(collections, options) ⇒ [<code>Promise.&lt;InitializeCollectionsResult&gt;</code>](#module_connect.initializeCollections.InitializeCollectionsResult)
-Synchonize multiple collection specifications with the database.
-
-**Kind**: instance method of [<code>Db</code>](#Db)  
-**Returns**: [<code>Promise.&lt;InitializeCollectionsResult&gt;</code>](#module_connect.initializeCollections.InitializeCollectionsResult) - Object keyed by collection name with corresponding collection objects.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| collections | [<code>InitializeCollectionsType</code>](#module_connect.initializeCollections.InitializeCollectionsType) | Collection specifications for one or more collections. |
-| options | [<code>InitializeCollectionsOptions</code>](#module_connect.initializeCollections.InitializeCollectionsOptions) | Initialization options. |
-
-<a name="Db+initializeServer"></a>
-
-### db.initializeServer(serverParams) ⇒ <code>Promise.&lt;module:connect.initializeServer.InitializeServerResult&gt;</code>
-Set the specified server parameters on the database server during
-initialization.
-
-**Kind**: instance method of [<code>Db</code>](#Db)  
-**Returns**: <code>Promise.&lt;module:connect.initializeServer.InitializeServerResult&gt;</code> - Resolves an object indicating the status of each parameter.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| serverParams | <code>object</code> | The server params and corresponding values to synchronize. |
 
 
 ## Support

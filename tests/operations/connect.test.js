@@ -27,7 +27,6 @@ jest.mock('mongodb', () => ({
   },
 }));
 
-
 describe('connect()', () => {
   const conf = {
     url: 'xyz',
