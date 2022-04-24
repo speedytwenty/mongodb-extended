@@ -24,6 +24,11 @@ environments.
 This module provides a mechanism for configuring your MongoDB collections in
 code and keeping things in sync across multiple environments.
 
+**MongoDB driver version:**
+
+* **Version 1.x:** Supports mongodb driver version 3.x
+* **Version 2.x:** Supports mongodb driver version 4.x
+
 ### Collection Configuration Management
 
 With mongodb-extended, your application can configure each collection as necessary
