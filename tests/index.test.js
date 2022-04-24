@@ -2,6 +2,7 @@
  * @file
  * Unit tests for the module entry (index.js).
  */
+require('../whatwg-url-shim');
 const { omit } = require('lodash');
 const mongodb = require('mongodb');
 const connect = require('..');

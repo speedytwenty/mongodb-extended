@@ -5,6 +5,7 @@
  * Mimmicks the mongodb driver while overriding the connect interface and
  * providing exports for the mongodb-extended assets.
  */
+require('./whatwg-url-shim');
 const nativeConnect = require('mongodb');
 const Db = require('./lib/db');
 const Collection = require('./lib/collection');

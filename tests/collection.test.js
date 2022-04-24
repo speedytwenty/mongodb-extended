@@ -2,13 +2,13 @@
  * @file
  * Unit tests for Collection.
  */
-const Server = require('mongodb/lib/topologies/server');
+const { Server } = require('mongodb');
 const Db = require('../lib/db');
 const Collection = require('../lib/collection');
 const ensureIndexes = require('../lib/operations/ensureIndexes');
 const initializeData = require('../lib/operations/initializeData');
 
-jest.mock('mongodb/lib/topologies/server');
+jest.mock('mongodb', () => ({ Collection: jest.fn(), Server: jest.fn() }));
 // eslint-disable-next-line func-names
 jest.mock('../lib/db', () => function () { this.s = { options: {} }; });
 jest.mock('../lib/operations/ensureIndexes', () => jest.fn().mockImplementation(() => Promise.resolve()));
