@@ -2,14 +2,14 @@
  * @file
  * Unit tests for Db.
  */
-const Server = require('mongodb/lib/topologies/server');
+const { Server } = require('mongodb');
 const Db = require('../lib/db');
 const ensureCollection = require('../lib/operations/ensureCollection');
 const initializeCollection = require('../lib/operations/initializeCollection');
 const initializeCollections = require('../lib/operations/initializeCollections');
 const initializeServer = require('../lib/operations/initializeServer');
 
-jest.mock('mongodb/lib/topologies/server');
+jest.mock('mongodb', () => ({ Db: jest.fn(), Collection: jest.fn(), Server: jest.fn() }));
 jest.mock('../lib/operations/ensureCollection', () => jest.fn().mockImplementation(() => Promise.resolve()));
 jest.mock('../lib/operations/initializeCollection', () => jest.fn().mockImplementation(() => Promise.resolve()));
 jest.mock('../lib/operations/initializeCollections', () => jest.fn().mockImplementation(() => Promise.resolve()));
