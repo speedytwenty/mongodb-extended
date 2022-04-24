@@ -10,5 +10,5 @@ env:
 jobs:
   include:
     - stage: Coveralls Test Coverage
-      node_js: node
+      node_js: 16
       script: npm run test:coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
