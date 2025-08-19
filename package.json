@@ -63,5 +63,6 @@
     "index.js",
     "lib",
     "whatwg-url-shim.js"
-  ]
+  ],
+  "packageManager": "yarn@4.9.2"
 }
