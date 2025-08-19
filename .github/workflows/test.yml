@@ -6,14 +6,15 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [22.x]
     steps:
     - uses: actions/checkout@v4
+    - run: corepack enable
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run lint
-    - run: npm run test
+        cache: 'yarn'
+    - run: yarn install --immutable
+    - run: yarn lint
+    - run: yarn test
