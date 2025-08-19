@@ -7,7 +7,7 @@ this file).
 [![view on npm](http://img.shields.io/npm/v/mongodb-extended.svg)](https://www.npmjs.org/package/mongodb-extended)
 [![npm module downloads](http://img.shields.io/npm/dt/mongodb-extended.svg)](https://www.npmjs.org/package/mongodb-extended)
 ![test workflow](https://github.com/speedytwenty/mongodb-extended/actions/workflows/test.yml/badge.svg?event=push)
-[![Coverage Status](https://coveralls.io/repos/github/speedytwenty/mongodb-extended/badge.svg?branch=master)](https://coveralls.io/github/speedytwenty/mongodb-extended?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/speedytwenty/mongodb-extended/badge.svg?branch=main)](https://coveralls.io/github/speedytwenty/mongodb-extended?branch=main)
 [![Maintainability](https://codeclimate.com/github/speedytwenty/mongodb-extended/badges/gpa.svg)](https://codeclimate.com/github/speedytwenty/mongodb-extended/maintainability)
 
 # MongoDB Extended (mongodb-extended)
