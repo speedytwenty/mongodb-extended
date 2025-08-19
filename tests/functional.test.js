@@ -5,12 +5,9 @@
 require('../whatwg-url-shim');
 const { omit, pick } = require('lodash');
 const semver = require('semver');
-const { MongoMemoryServer } = require('mongodb-memory-server');
 const connect = require('..');
 const Db = require('../lib/db');
 const Collection = require('../lib/collection');
-
-let mongod;
 
 const conf = {
   name: 'mongodb-extended',
@@ -57,11 +54,8 @@ const conf = {
 
 const instances = [];
 beforeAll(async () => {
-  mongod = await MongoMemoryServer.create();
-  conf.url = mongod.getUri();
-});
-afterAll(() => {
-  return Promise.all(instances.map((client) => client.close())).then(() => mongod.stop());
+  // eslint-disable-next-line no-underscore-dangle
+  conf.url = global.__MONGO_URI__;
 });
 
 describe('General application', () => {
@@ -146,8 +140,10 @@ describe('General application', () => {
       traceExceptions: true,
       journalCommitInterval: 2,
       syncdelay: 61,
-      wiredTigerConcurrentReadTransactions: 129,
-      wiredTigerConcurrentWriteTransactions: 129,
+      // Cannot modify concurrent read transactions limit when it is being dynamically adjusted
+      // wiredTigerConcurrentReadTransactions: 129,
+      // Cannot modify concurrent write transactions limit when it is being dynamically adjusted
+      // wiredTigerConcurrentWriteTransactions: 129,
       disableJavaScriptJIT: semver.lt(version, '4.0.0'), // Default changed in 4.0
     };
     if (semver.gte(version, '3.4.0')) {

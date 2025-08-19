@@ -1,0 +1,26 @@
+name: coverage
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - name: Test Coverage Report
+      run: |
+        npm ci
+        npm run lint
+        npm run test:coverage
+    - name: Coveralls
+      uses: coverallsapp/github-action@v2
