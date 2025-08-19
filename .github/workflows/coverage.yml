@@ -16,11 +16,11 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+        cache: 'yarn'
     - name: Test Coverage Report
       run: |
-        npm ci
-        npm run lint
-        npm run test:coverage
+        yarn install --immutable
+        yarn lint
+        yarn test
     - name: Coveralls
       uses: coverallsapp/github-action@v2
