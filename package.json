@@ -64,9 +64,9 @@
     "*.js": "eslint --fix"
   },
   "jest": {
-    "preset": "@shelf/jest-mongodb",
-    "setupFilesAfterEnv": [
-      "jest-expect-message"
+    "projects": [
+      "tests/unit.config.js",
+      "tests/integration.config.js"
     ]
   },
   "files": [
