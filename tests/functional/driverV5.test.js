@@ -12,7 +12,7 @@ const Collection = require('../../lib/collection');
 jest.mock('mongodb', () => jest.requireActual('mongodb5'));
 
 const conf = {
-  name: 'mongodb-extended',
+  name: 'test-v5',
   options: {},
   collections: {
     col1: {

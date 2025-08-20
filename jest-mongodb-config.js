@@ -4,4 +4,5 @@ module.exports = {
       skipMD5: true,
     },
   },
+  useSharedDBForAllJestWorkers: false,
 };

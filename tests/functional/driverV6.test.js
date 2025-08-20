@@ -10,7 +10,7 @@ const Db = require('../../lib/db');
 const Collection = require('../../lib/collection');
 
 const conf = {
-  name: 'mongodb-extended',
+  name: 'test-v6',
   options: {},
   collections: {
     col1: {
