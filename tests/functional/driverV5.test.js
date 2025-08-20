@@ -2,16 +2,18 @@
  * @file
  * General functional test.
  */
-require('../whatwg-url-shim');
+require('../../whatwg-url-shim');
 const { omit, pick } = require('lodash');
 const semver = require('semver');
-const connect = require('..');
-const Db = require('../lib/db');
-const Collection = require('../lib/collection');
+const connect = require('../..');
+const Db = require('../../lib/db');
+const Collection = require('../../lib/collection');
+
+jest.mock('mongodb', () => jest.requireActual('mongodb5'));
 
 const conf = {
   name: 'mongodb-extended',
-  options: { useUnifiedTopology: true },
+  options: {},
   collections: {
     col1: {
       indexes: {
@@ -57,6 +59,7 @@ beforeAll(async () => {
   // eslint-disable-next-line no-underscore-dangle
   conf.url = global.__MONGO_URI__;
 });
+afterAll(() => Promise.all(instances.map((client) => client.close())));
 
 describe('General application', () => {
   test('initializes collections with options, indexes, and data', () => {

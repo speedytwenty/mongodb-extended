@@ -17,13 +17,13 @@ const mockClient = {
 
 jest.mock('mongodb', () => ({
   MongoClient: {
-    connect: (...args) => {
+    connect: jest.fn().mockImplementation(async (...args) => {
       let url;
       const cb = args.pop();
       if (args.length) url = args.shift();
       if (url === 'error') cb(new Error('error'));
-      else cb(null, mockClient);
-    },
+      return mockClient;
+    }),
   },
 }));
 
