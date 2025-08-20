@@ -151,9 +151,9 @@ connect({
     * [.initializeCollection](#module_connect.initializeCollection) ⇒ <code>Promise</code>
         * [.CollectionSpec](#module_connect.initializeCollection.CollectionSpec) : <code>object</code>
     * [.initializeCollections](#module_connect.initializeCollections) ⇒ [<code>Promise.&lt;InitializeCollectionsResult&gt;</code>](#module_connect.initializeCollections.InitializeCollectionsResult)
-        * [.InitializeCollectionsType](#module_connect.initializeCollections.InitializeCollectionsType) : [<code>object.&lt;CollectionSpec&gt;</code>](#module_connect.initializeCollection.CollectionSpec) \| [<code>Array.&lt;CollectionSpec&gt;</code>](#module_connect.initializeCollection.CollectionSpec)
+        * [.InitializeCollectionsType](#module_connect.initializeCollections.InitializeCollectionsType) : [<code>Object.&lt;CollectionSpec&gt;</code>](#module_connect.initializeCollection.CollectionSpec) \| [<code>Array.&lt;CollectionSpec&gt;</code>](#module_connect.initializeCollection.CollectionSpec)
         * [.InitializeCollectionsOptions](#module_connect.initializeCollections.InitializeCollectionsOptions) : <code>object</code>
-        * [.InitializeCollectionsResult](#module_connect.initializeCollections.InitializeCollectionsResult) : [<code>object.&lt;initializeCollections&gt;</code>](#module_connect.initializeCollections)
+        * [.InitializeCollectionsResult](#module_connect.initializeCollections.InitializeCollectionsResult) : [<code>Object.&lt;initializeCollections&gt;</code>](#module_connect.initializeCollections)
     * [.initializeServer](#module_connect.initializeServer) ⇒ <code>Promise</code>
     * [.Configuration](#module_connect.Configuration) : <code>object</code>
 

@@ -2,20 +2,23 @@
   "extends": [
     "airbnb-base",
     "plugin:jest/recommended",
-    "plugin:jsdoc/recommended",
+    "plugin:jsdoc/recommended"
   ],
   "plugins": ["jsdoc", "disable"],
   "env": {
     "browser": false,
     "node": true,
-    "jest": true,
+    "jest": true
   },
   "rules": {
+    "camelcase": ["error", {
+      "allow": ["default_language", "language_override"]
+    }],
     "max-len": ["error", 150, 2, {
       "ignoreUrls": true,
       "ignoreComments": false,
       "ignoreStrings": true,
-      "ignoreTemplateLiterals": true,
+      "ignoreTemplateLiterals": true
     }],
     "no-param-reassign": ["error", { "props": true }],
     "no-use-before-define": ["error", { "functions": false, "classes": false }],
@@ -27,7 +30,6 @@
 
     "jsdoc/check-access": "warn",
     "jsdoc/check-alignment": "warn",
-    "jsdoc/check-examples": "warn",
     "jsdoc/check-indentation": "warn",
     "jsdoc/check-line-alignment": "warn",
     "jsdoc/check-param-names": "warn",
@@ -39,7 +41,7 @@
     "jsdoc/empty-tags": "warn",
     "jsdoc/implements-on-classes": "warn",
     "jsdoc/match-description": "warn",
-    "jsdoc/newline-after-description": "warn",
+    "jsdoc/tag-lines": ["warn", "any", { "startLines": 1 }],
     "jsdoc/no-bad-blocks": "warn",
     "jsdoc/no-defaults": "off",
     "jsdoc/no-types": "off",
@@ -48,8 +50,8 @@
     "jsdoc/require-description-complete-sentence": "warn",
     "jsdoc/require-example": ["warn", {
       "contexts": [
-        "ClassDeclaration:not([accessibility=\"private\"])",
-      ],
+        "ClassDeclaration:not([accessibility=\"private\"])"
+      ]
     }],
     "jsdoc/require-file-overview": "off",
     "jsdoc/require-hyphen-before-param-description": "off",
@@ -61,9 +63,9 @@
         FunctionDeclaration: true,
         FunctionExpression: true,
         ArrowFunctionExpression: true,
-        MethodDefinition: true,
+        MethodDefinition: true
       },
-      "enableFixer": true,
+      "enableFixer": true
     }],
     "jsdoc/require-param": "warn",
     "jsdoc/require-param-description": "warn",
@@ -80,6 +82,6 @@
     "jsdoc/require-throws": "warn",
     "jsdoc/require-yields": "warn",
     "jsdoc/require-yields-check": "warn",
-    "jsdoc/valid-types": "warn",
-  },
+    "jsdoc/valid-types": "warn"
+  }
 }
