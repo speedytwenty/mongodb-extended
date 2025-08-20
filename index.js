@@ -28,7 +28,7 @@ nativeConnect.Collection = require('./lib/collection');
  * @property {string} name The name of the database.
  * @property {string} [url] The MongoDB URL.
  * @property {object} [options] MongoDB connection options.
- * @property {object.<module:connect.initializeCollection.CollectionSpec>} [collections]
+ * @property {Object<module:connect.initializeCollection.CollectionSpec>} [collections]
  * The collection specifications for the application.
  * @property {Array.<string>} [dropCollections] List of collections that will be
  * dropped if they exist.

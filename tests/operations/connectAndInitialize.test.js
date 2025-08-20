@@ -50,6 +50,7 @@ describe('connectAndInitialize()', () => {
   test('closes on initializeAll error', () => {
     expect.assertions(1);
     return connectAndInitialize({ ...conf, initializeAllError: true }).catch((e) => {
+      // eslint-disable-next-line jest/no-conditional-expect
       expect(e.client.close).toHaveBeenCalled();
     });
   });
