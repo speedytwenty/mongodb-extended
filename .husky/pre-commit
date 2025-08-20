@@ -1,1 +1,1 @@
-yarn run docs && git add README.md && npx lint-staged && yarn test
+yarn run docs && git add README.md && npx lint-staged && yarn test --runInBand
