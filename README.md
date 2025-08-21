@@ -26,8 +26,9 @@ code and keeping things in sync across multiple environments.
 
 **MongoDB driver version:**
 
-* **Version 1.x:** Supports mongodb driver version 3.x
+* **Version 3.x:** Supports mongodb driver version 4.x, 5.x & 6.x
 * **Version 2.x:** Supports mongodb driver version 4.x
+* **Version 1.x:** Supports mongodb driver version 3.x
 
 ### Collection Configuration Management
 
@@ -195,5 +196,4 @@ were dropped.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| db | <code>module:connect.Db</code> | Active MongoDB database object. |
-| colNames | 
+| db | <code>module:c
