@@ -58,7 +58,7 @@
     "lodash": "^4.17.15"
   },
   "peerDependencies": {
-    "mongodb": "4.x || 5.x"
+    "mongodb": "4.x || 5.x || 6.x"
   },
   "lint-staged": {
     "*.js": "eslint --fix"

@@ -6307,7 +6307,7 @@ __metadata:
     semver: "npm:^7.7.2"
     typescript: "npm:^5.0.0"
   peerDependencies:
-    mongodb: 4.x || 5.x
+    mongodb: 4.x || 5.x || 6.x
   languageName: unknown
   linkType: soft
 
