@@ -9,7 +9,7 @@
     "test:coverage": "yarn test --coverage",
     "lint": "eslint --ext .js .",
     "lint:fix": "eslint --fix --ext .js .",
-    "postinstall": "husky install"
+    "prepare": "husky || true"
   },
   "repository": {
     "type": "git",
